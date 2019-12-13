@@ -1,0 +1,42 @@
+@model RoleTopMVC.ViewModels.HistoricoViewModel
+@{
+    ViewData["H2"] = "Histórico de Eventos";
+}
+
+<main id=historico>
+    <h2>@ViewData["H2"]</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Data do Evento</th>
+                <th>Nome do Evento</th>
+                <th>Tipo do Evento</th>
+                <th>Serviço(s) Contratado(s)</th>
+                <th>Status da Reserva</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach( var reserva in Model.Reservas ) {
+                <tr>
+                    <td>@reserva.Data_evento</td>
+                    <td>@reserva.Nome_evento</td>
+                    <td>@reserva.Tipo_evento</td>
+                    <td>@reserva.Servicos</td>
+                    @if (@reserva.Status == 0)
+            {
+                <td>Sua reserva está em análise.</td>
+            } else if (@reserva.Status == 1)
+            {
+                <td>Seu evento foi aprovado.</td>
+            } else if(@reserva.Status == 2)
+            {
+                <td>Seu evento foi reprovado.</td>
+            }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br>
+    <a href='@Url.Action("Index", "Reserva")'>Faça seu evento. Clique e agende!</a>
+
+</main>
